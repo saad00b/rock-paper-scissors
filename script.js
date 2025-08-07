@@ -1,5 +1,9 @@
-let humanScore;
-let computerScore;
+let humanScore ;
+let computerScore ;
+if (!humanScore) {humanScore = 0}
+if (!computerScore) {computerScore = 0}
+let result = document.querySelector(".result");
+let finalResult = document.querySelector(".finalResult");
 
 function getComputerChoice() {
     let value = Math.random();
@@ -26,40 +30,52 @@ function getHumanChoice() {
 function playRound(humanChoice,computerChoice) {
     humanChoice = humanChoice.toLowerCase();
     if (humanChoice === computerChoice) {
-        console.log("This round is a tie!");
+        result.textContent = "This round is a tie!";
         return ;
     }
     if (humanChoice === "paper" && computerChoice ==="rock" || humanChoice === "rock" && computerChoice ==="scissors" || humanChoice === "scissors" && computerChoice ==="paper" ) {
-        console.log(`You win this round! ${humanChoice} beats ${computerChoice}`);
+        result.textContent = `You win this round! ${humanChoice} beats ${computerChoice}`;
         humanScore++;
         return ;
     }
     else {
-        console.log(`You lose this round! ${computerChoice} beats ${humanChoice}`);
+        result.textContent = `You lose this round! ${computerChoice} beats ${humanChoice}`;
         computerScore++;
         return ;
     }
 }
 
 
-
-function playGame() {
-    humanScore = 0;
-    computerScore = 0;
-    for (let i=0;i<5;i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
+let btns = document.querySelectorAll(".choice");
+for (btn of btns) {btn.addEventListener("click", () => { 
+    playRound(btn.id,getComputerChoice());
+    document.querySelector(".humanScore").textContent = `You: ${humanScore}` ;
+    document.querySelector(".computerScore").textContent = `Computer: ${computerScore}` ;
+    if (humanScore >= 5 || computerScore >= 5) {
+        result.textContent = "";
+        if (humanScore > computerScore) {
+            finalResult.textContent = "You win the game! Congrats!";
+        }
+        else {
+            finalResult.textContent = "You lose the game!";
+        }
+        playButton.style.display = "block";
     }
-    if (humanScore > computerScore) {
-        console.log("You win the game! Congrats!");
-    }
-    else if (humanScore < computerScore) {
-        console.log("You lose the game!");
-    }
-    else {
-        console.log("Tied game!");
-    }
+})
 }
 
-playGame();
+let playButton = document.querySelector("#playButton");
+playButton.style.display = 'none';
+playButton.addEventListener("click", () => {
+    humanScore = 0;
+    computerScore = 0;
+    document.querySelector(".humanScore").textContent = `You: ${humanScore}` ;
+    document.querySelector(".computerScore").textContent = `Computer: ${computerScore}` ;
+    result.textContent ="";
+    finalResult.textContent = "";
+    playButton.style.display = 'none';})  
+    
+
+
+
+
