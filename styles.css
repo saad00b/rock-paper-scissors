@@ -1,0 +1,23 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-container {
+    display: flex;
+    gap: 15px;
+    /*justify-content: center;*/
+}
+
+.choice {
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+    border-radius: 8px;
+}
+
+#playButton {
+    background-color: #dd0000;
+}
